@@ -12,7 +12,26 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.static-price-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.75); /* خلفية سوداء شفافة فخمة */
+    color: #d4af37; /* اللون الذهبي الخاص بك */
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid rgba(212, 175, 55, 0.3); /* إطار ذهبي خفيف */
+    z-index: 5;
+    backdrop-filter: blur(5px); /* تأثير زجاجي خلف السعر */
+    
+    /* منع التأثر بالهوفر */
+    pointer-events: none; /* لكي لا يمنع الضغط على ما خلفه */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,7 +42,114 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.premium-food-card-horizontal {
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 70px; /* زوايا دائرية كبيرة للفخامة */
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: 15px; /* مسافة أمان داخلية موحدة للمكونات عن الحدود */
+    height: 160px; /* زيادة الارتفاع قليلاً لراحة العناصر */
+    position: relative;
+}
 
+.premium-food-card-horizontal:hover {
+    transform: translateY(-5px) scale(1.01);
+    border-color: #d4af37 !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+/* قسم الصورة */
+.img-section {
+    width: 130px; /* مقاس ثابت موحد ومناسب لمنع البكسلة */
+    height: 130px;
+    margin-left: 20px; /* مسافة بين الصورة والنصوص */
+    flex-shrink: 0;
+}
+
+/* السر هنا: حاوية دائرية تماماً تقص الصورة */
+.true-circle-img-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* دائرية حقيقية */
+    overflow: hidden; /* قص الصورة */
+    border: 4px solid #1a1a1a; /* برواز فخم */
+    background: #000;
+    z-index: 2;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.food-img-v4 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لملء الدائرة تماماً دون تمطيط */
+    transition: transform 0.5s ease;
+}
+
+/* حركة بسيطة للصورة عند التحويم */
+.premium-food-card-horizontal:hover .food-img-v4 {
+    transform: scale(1.1);
+}
+
+/* قسم التفاصيل */
+.details-section {
+    height: 100%;
+    padding: 5px 0; /* مسافة عمودية خفيفة للنصوص */
+}
+
+.food-title-v4 {
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+.food-desc-v4 {
+    display: '-webkit-box';
+    WebkitLineClamp: '2'; /* سطرين كحد أقصى */
+    WebkitBoxOrient: 'vertical';
+    overflow: 'hidden';
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* تنسيق الأزرار الاحترافي */
+.action-btn {
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.order-now-btn {
+    background-color: #d4af37;
+}
+
+.order-now-btn:hover {
+    background-color: #bfa02e;
+}
+
+/* البادج القديم الخاص بك مع تعديل طفيف للموضع */
+.static-price-badge-v4 {
+    position: absolute;
+    top: -5px; /* رفعه قليلاً فوق الدائرة */
+    left: -5px;
+    background: rgba(212, 175, 55, 0.9); /* جعل الخلفية ذهبية أكثر */
+    color: #000; /* نص أسود للتباين */
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 0.8rem;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* تأثير الإضاءة الخلفي للصورة */
+.img-glow-effect {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%; height: 140%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent 70%);
+    z-index: 1;
+}
 .App-link {
   color: #61dafb;
 }
