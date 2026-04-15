@@ -1,11 +1,8 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import {  getDatabase } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+/** @format */
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCC99FcUVRcG-zUlh4LsEMTN4RgWwunp5U",
   authDomain: "erbil-jobs.firebaseapp.com",
@@ -17,6 +14,11 @@ const firebaseConfig = {
   measurementId: "G-MXBH4KLLQC"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const db = getDatabase(app);
+// 1. إعطاء اسم فريد جداً لهذا التطبيق (مثلاً "jobs_app") 
+// لتمييزه عن "erbil_app" الخاص بالطلبات
+const app = !getApps().find(a => a.name === "jobs_app") 
+  ? initializeApp(firebaseConfig, "jobs_app") 
+  : getApp("jobs_app");
+
+// 2. تمرير رابط قاعدة البيانات الخاص بالوظائف يدوياً لقطع الشك باليقين
+export const db = getDatabase(app, "https://erbil-jobs-default-rtdb.firebaseio.com");

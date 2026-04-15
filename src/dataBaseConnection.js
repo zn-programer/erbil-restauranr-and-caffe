@@ -16,10 +16,8 @@ export const fetchProducts = async (setLoading, setProducts) => {
       .select("*")
       .order("id", { ascending: false });
     if (error) throw error;
-    console.log(data);
     setProducts(data);
   } catch (error) {
-    console.error("خطأ في جلب البيانات:", error.message);
   } finally {
     setLoading(false);
   }

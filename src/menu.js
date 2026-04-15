@@ -13,7 +13,6 @@ export default function Menu({ setIsOpenCart }) {
     "كريب وافل",
     "مشروبات ساخنة",
     "مشروبات باردة",
-    "كباب",
     "كص",
     "بيتزا",
     "لحم بعجين",
@@ -64,7 +63,6 @@ export default function Menu({ setIsOpenCart }) {
     },
   });
   // تصفية العناصر بناءً على الفئة المختارة
-  console.log(products);
   const filteredItems = products.filter((i) => i.category === activeCat);
 
   return (

@@ -19,7 +19,7 @@ export default function ManagementModal({ isOpen, onClose }) {
       id: 2,
       name: "ياسر",
       role: "مدير العمليات",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop",
+      image: "yasser.webp",
       bio: "مسؤول عن جودة الخدمة وتطوير تجربة الزبائن."
     }
   ];

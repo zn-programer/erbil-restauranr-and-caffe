@@ -274,7 +274,7 @@ function App() {
 
           {/* الفوتر */}
           <footer className='py-5 text-center'>
-            <p className='small'>
+            <div className='small'>
               © 2026 مطعم أربيل - جميع الحقوق محفوظة <br />
               تمت البرمجة بواسطة{" "}
               <span className='text-warning'>زيد حازم الطائي</span>
@@ -315,7 +315,7 @@ function App() {
                   <Send size={20} />
                 </a>
               </div>
-            </p>
+            </div>
           </footer>
         </div>
         {/* cart */}

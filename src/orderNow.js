@@ -5,48 +5,79 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, User, Phone, MapPin } from "lucide-react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { ref, push, set, serverTimestamp } from "firebase/database";
+import { address } from "framer-motion/client";
+import { databaseOrders } from "./orders";
 export default function SingleItemModal({ isOpen, item, onClose }) {
   const [customerData, setCustomerData] = useState({
     name: "",
     phone: "",
     address: "",
   });
-  const onConfirm = async (orderData) => {
-    const BOT_TOKEN = "8712507869:AAE5KCCzHCm4UqZmDId2F4tWbPpiwpZE7qk"; // التوكن الذي حصلت عليه من BotFather
-    const CHAT_ID = "1573741391"; // الآيدي الخاص بك أو بالمجموعة
+  //   const onConfirm = async (orderData) => {
+  //     const BOT_TOKEN = "8712507869:AAE5KCCzHCm4UqZmDId2F4tWbPpiwpZE7qk"; // التوكن الذي حصلت عليه من BotFather
+  //     const CHAT_ID = "1573741391"; // الآيدي الخاص بك أو بالمجموعة
 
-    // تنسيق الرسالة بشكل مرتب ليظهر في تلجرام
-    const message = `
-🌟 *طلب جديد - ARBIL PRO* 🌟
---------------------------
-👤 *الاسم:* ${customerData.name}
-📞 *الهاتف:* ${customerData.phone}
-📍 *العنوان:* ${customerData.address}
---------------------------
-🍲 *الطلبات:*
-${`• ${orderData.name}$السعر:${orderData.price} (العدد: ${orderData.count})`}
---------------------------
-💰 *المجموع الكلي:* ${orderData.price} دينار
---------------------------
-🕒 *الوقت:* ${new Date().toLocaleTimeString("ar-IQ")}
-  `;
+  //     // تنسيق الرسالة بشكل مرتب ليظهر في تلجرام
+  //     const message = `
+  // 🌟 *طلب جديد - ARBIL PRO* 🌟
+  // --------------------------
+  // 👤 *الاسم:* ${customerData.name}
+  // 📞 *الهاتف:* ${customerData.phone}
+  // 📍 *العنوان:* ${customerData.address}
+  // --------------------------
+  // 🍲 *الطلبات:*
+  // ${`• ${orderData.name}$السعر:${orderData.price} (العدد: ${orderData.count})`}
+  // --------------------------
+  // 💰 *المجموع الكلي:* ${orderData.price} دينار
+  // --------------------------
+  // 🕒 *الوقت:* ${new Date().toLocaleTimeString("ar-IQ")}
+  //   `;
 
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  //     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+  //     try {
+  //       const response = await axios.post(url, {
+  //         chat_id: CHAT_ID,
+  //         text: message,
+  //         parse_mode: "Markdown", // لجعل الخطوط عريضة ومنسقة
+  //       });
+
+  //       if (response.data.ok) {
+  //         console.log("تم إرسال الطلب بنجاح إلى تلجرام");
+  //         return true;
+  //       }
+  //     } catch (error) {
+  //       console.error("خطأ في إرسال الطلب لتلجرام:", error);
+  //       return false;
+  //     }
+  //   };
+  const onConfirm = async (item) => {
+    // المرجع لقاعدة البيانات
+    const ordersRef = ref(databaseOrders, "orders");
+
+    // إنشاء مفتاح فريد للطلب
+    const newOrderRef = push(ordersRef);
+
+    // الهيكلية التي حددتها أنت بالضبط مع إضافة التوقيت للترتيب
+    const data = {
+      name: customerData.name,
+      phone: customerData.phone,
+      address: customerData.address,
+      order: [
+        {
+          ...item,
+        },
+      ],
+      timestamp: serverTimestamp(), // مضافة فقط لضمان ظهور الأحدث أولاً في الداشبورد
+      status: "pending",
+    };
 
     try {
-      const response = await axios.post(url, {
-        chat_id: CHAT_ID,
-        text: message,
-        parse_mode: "Markdown", // لجعل الخطوط عريضة ومنسقة
-      });
-
-      if (response.data.ok) {
-        console.log("تم إرسال الطلب بنجاح إلى تلجرام");
-        return true;
-      }
+      await set(newOrderRef, data);
+      console.log("تم رفع الطلب  بنجاح");
     } catch (error) {
-      console.error("خطأ في إرسال الطلب لتلجرام:", error);
-      return false;
+      console.error("خطأ أثناء الرفع:", error);
     }
   };
   const showSuccessAlert = () => {

@@ -8,16 +8,15 @@ import { db } from "./firebaseConfig"; // تأكد من إعداد ملف الك
 export default function JobsModal({ isOpen, onClose }) {
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    fetchJobs();
+    fetchJobs("jobs");
   }, []);
   if (!isOpen) return null;
-  // الخيار الأول: جلب البيانات مرة واحدة فقط (مثلاً عند تشغيل التطبيق)
   async function fetchJobs(path) {
     const dbRef = ref(db);
     try {
       const snapshot = await get(child(dbRef, path));
       if (snapshot.exists()) {
-        setJobs(snapshot.val());
+        setJobs(Object.values(snapshot.val()));
       } else {
         console.log("لا توجد بيانات في هذا المسار");
         return null;
@@ -26,6 +25,7 @@ export default function JobsModal({ isOpen, onClose }) {
       console.error("خطأ في جلب البيانات:", error);
     }
   }
+  // الخيار الأول: جلب البيانات مرة واحدة فقط (مثلاً عند تشغيل التطبيق)
 
   const gold = "#D4AF37"; // لون الذهب الخاص بهوية المطعم
 
@@ -86,6 +86,7 @@ export default function JobsModal({ isOpen, onClose }) {
                   style={{
                     backgroundColor: "#111",
                     borderRight: `4px solid ${gold}`,
+                    direction:"rtl"
                   }}>
                   <h5 className='fw-bold mb-2' style={{ color: gold }}>
                     {job.title}
@@ -99,7 +100,7 @@ export default function JobsModal({ isOpen, onClose }) {
                     className='d-flex align-items-center gap-2'
                     style={{ color: "#00d1ff", fontSize: "13px" }}>
                     <Info size={14} />
-                    <span>للتقديم: يرجى مراجعة إدارة المطعم ميدانياً</span>
+                    <span>للتقديم: يرجى مراجعة إدارة المطعم </span>
                   </div>
                 </motion.div>
               ))
