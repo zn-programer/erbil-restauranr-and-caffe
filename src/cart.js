@@ -116,12 +116,12 @@ const Cart = ({ isOpen, onClose }) => {
             initial={{ x: "100%" }} // تبدأ من خارج الشاشة يميناً
             animate={{ x: 0 }} // تدخل للشاشة
             exit={{ x: "100%" }} // تخرج عند الإغلاق
-            transition={{
-              type: "spring",
-              damping: 15,
-              stiffness: 400,
-              mass: 0.8,
-            }}
+            // transition={{
+            //   type: "spring",
+            //   damping: 15,
+            //   stiffness: 400,
+            //   mass: 0.8,
+            // }}
             style={{
               position: "fixed",
               top: 0,
