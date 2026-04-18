@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 import { ref, push, set, serverTimestamp } from "firebase/database";
 import { databaseOrders } from "./orders";
 
-
 const Cart = ({ isOpen, onClose }) => {
   const [finishInputs, setFinishInputs] = useState({
     name: "",
@@ -27,45 +26,45 @@ const Cart = ({ isOpen, onClose }) => {
     return acc + +currentOBJ.price * currentOBJ.count;
   }, 0);
 
-//   const sendOrderToTelegram = async (orderData) => {
-//     const BOT_TOKEN = "8712507869:AAE5KCCzHCm4UqZmDId2F4tWbPpiwpZE7qk"; // التوكن الذي حصلت عليه من BotFather
-//     const CHAT_IDs = ["1573741391", "7446937158"]; // الآيدي الخاص بك أو بالمجموعة
-//     let allSuccess = false; // نفترض النجاح في البداية
-//     // تنسيق الرسالة بشكل مرتب ليظهر في تلجرام
-//     const message = `
-// 🌟 *طلب جديد - ARBIL PRO* 🌟
-// --------------------------
-// 👤 *الاسم:* ${finishInputs.name}
-// 📞 *الهاتف:* ${finishInputs.phone}
-// 📍 *العنوان:* ${finishInputs.address}
-// --------------------------
-// 🍲 *الطلبات:*
-// ${orderData.map((item) => `• ${item.name}$السعر:${item.price} (العدد: ${item.count})`).join("\n")}
-// --------------------------
-// 💰 *المجموع الكلي:* ${total} دينار
-// --------------------------
-// 🕒 *الوقت:* ${new Date().toLocaleTimeString("ar-IQ")}
-//   `;
+  //   const sendOrderToTelegram = async (orderData) => {
+  //     const BOT_TOKEN = "8712507869:AAE5KCCzHCm4UqZmDId2F4tWbPpiwpZE7qk"; // التوكن الذي حصلت عليه من BotFather
+  //     const CHAT_IDs = ["1573741391", "7446937158"]; // الآيدي الخاص بك أو بالمجموعة
+  //     let allSuccess = false; // نفترض النجاح في البداية
+  //     // تنسيق الرسالة بشكل مرتب ليظهر في تلجرام
+  //     const message = `
+  // 🌟 *طلب جديد - ARBIL PRO* 🌟
+  // --------------------------
+  // 👤 *الاسم:* ${finishInputs.name}
+  // 📞 *الهاتف:* ${finishInputs.phone}
+  // 📍 *العنوان:* ${finishInputs.address}
+  // --------------------------
+  // 🍲 *الطلبات:*
+  // ${orderData.map((item) => `• ${item.name}$السعر:${item.price} (العدد: ${item.count})`).join("\n")}
+  // --------------------------
+  // 💰 *المجموع الكلي:* ${total} دينار
+  // --------------------------
+  // 🕒 *الوقت:* ${new Date().toLocaleTimeString("ar-IQ")}
+  //   `;
 
-//     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-//     for (let i = 0; i < CHAT_IDs.length; i++) {
-//       try {
-//         const response = await axios.post(url, {
-//           chat_id: CHAT_IDs[i],
-//           text: message,
-//           parse_mode: "Markdown", // لجعل الخطوط عريضة ومنسقة
-//         });
+  //     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  //     for (let i = 0; i < CHAT_IDs.length; i++) {
+  //       try {
+  //         const response = await axios.post(url, {
+  //           chat_id: CHAT_IDs[i],
+  //           text: message,
+  //           parse_mode: "Markdown", // لجعل الخطوط عريضة ومنسقة
+  //         });
 
-//         if (response.data.ok) {
-//           allSuccess = true;
-//           console.log(allSuccess);
-//         }
-//       } catch (error) {
-//         console.log(error.message);
-//       }
-//     }
-//     return allSuccess;
-//   };
+  //         if (response.data.ok) {
+  //           allSuccess = true;
+  //           console.log(allSuccess);
+  //         }
+  //       } catch (error) {
+  //         console.log(error.message);
+  //       }
+  //     }
+  //     return allSuccess;
+  //   };
   const onConfirm = async (item) => {
     // المرجع لقاعدة البيانات
     const ordersRef = ref(databaseOrders, "orders");
@@ -78,9 +77,7 @@ const Cart = ({ isOpen, onClose }) => {
       name: finishInputs.name,
       phone: finishInputs.phone,
       address: finishInputs.address,
-      order: [
-        ...cart
-      ],
+      order: [...cart],
       timestamp: serverTimestamp(), // مضافة فقط لضمان ظهور الأحدث أولاً في الداشبورد
       status: "pending",
     };
@@ -119,7 +116,12 @@ const Cart = ({ isOpen, onClose }) => {
             initial={{ x: "100%" }} // تبدأ من خارج الشاشة يميناً
             animate={{ x: 0 }} // تدخل للشاشة
             exit={{ x: "100%" }} // تخرج عند الإغلاق
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            transition={{
+              type: "spring",
+              damping: 15,
+              stiffness: 400,
+              mass: 0.8,
+            }}
             style={{
               position: "fixed",
               top: 0,
