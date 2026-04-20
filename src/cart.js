@@ -134,6 +134,7 @@ const Cart = ({ isOpen, onClose }) => {
               display: "flex",
               flexDirection: "column",
               boxShadow: "-10px 0 30px rgba(0,0,0,0.5)",
+              direction:"ltr"
             }}>
             {/* الهيدر الخاص بالسلة */}
             <div className='p-4 d-flex justify-content-between align-items-center border-bottom border-secondary'>
