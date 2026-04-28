@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import OrderNowDialog from "./orderNow";
 import { fetchProducts } from "./dataBaseConnection";
 export default function Menu({ setIsOpenCart }) {
-  const [activeCat, setActiveCat] = useState("لحم بعجين");
+  const [activeCat, setActiveCat] = useState("كريب وافل");
   const [visibleCount, setVisibleCount] = useState(6); // الحالة للتحكم في عدد العناصر الظاهرة
   const categories = [
     "كريب وافل",
@@ -15,7 +15,6 @@ export default function Menu({ setIsOpenCart }) {
     "مشروبات باردة",
     "كص",
     "بيتزا",
-    "لحم بعجين",
   ];
   const [isOpenOrderNow, setIsOpenOrderNow] = useState(false);
   const onCloseOrderNow = () => {
