@@ -15,6 +15,10 @@ export default function Menu({ setIsOpenCart }) {
     "مشروبات باردة",
     "كص",
     "بيتزا",
+    "لحم بعجين",
+    "الفنكر",
+    "الريزو",
+    "البركر",
   ];
   const [isOpenOrderNow, setIsOpenOrderNow] = useState(false);
   const onCloseOrderNow = () => {

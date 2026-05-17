@@ -262,7 +262,7 @@ function App() {
                   <div className='col-md-5'>
                     <h4 className='text-warning mb-3'>ساعات العمل</h4>
                     <ul className='list-unstyled opacity-75'>
-                      <li>يومياً: 8:00 صباحا - 3:00 بعد منتصف الليل</li>
+                      <li>يومياً: 4:00 عصرا - 12:00 منتصف الليل</li>
                       <li className='mt-3'>📍 هيت -  قرب الجسر</li>
                       <li>📞 للحجز: 07817061806</li>
                     </ul>
