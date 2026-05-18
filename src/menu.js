@@ -16,9 +16,10 @@ export default function Menu({ setIsOpenCart }) {
     "كص",
     "بيتزا",
     "لحم بعجين",
-    "الفنكر",
-    "الريزو",
-    "البركر",
+    "فنكر",
+    "ريزو",
+    "بركر",
+    "مشروبات غازية",
   ];
   const [isOpenOrderNow, setIsOpenOrderNow] = useState(false);
   const onCloseOrderNow = () => {
