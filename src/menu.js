@@ -1,5 +1,5 @@
 /** @format */
-import "./App.css"
+import "./App.css";
 import { useState, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CartCotextAPI } from "./cartContext";
@@ -96,76 +96,89 @@ export default function Menu({ setIsOpenCart }) {
           ))}
         </div>
       </div>
+      <div className='row g-4 text-end' dir='rtl'>
+        {" "}
+        {/* زيادة المسافة بين الكروت g-4 */}
+        <AnimatePresence>
+          {filteredItems.slice(0, visibleCount).map((item) => (
+            <div key={item.id} className='col-12 col-xl-6'>
+              {" "}
+              {/* col-xl-6 ليكون صفين في الشاشات الكبيرة جداً */}
+              {/* الأنيميشن القديم بالضبط */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 50 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                viewport={{ once: false, amount: 0.2 }}
+                className='premium-food-card-horizontal d-flex align-items-center'>
+                {/* قسم الصورة الدائرية الحقيقية مع البادج */}
+                <div className='img-section position-relative'>
+                  <span className='static-price-badge-v4'>
+                    {item.price} د.ع
+                  </span>
 
-      <div className='row g-4 text-end' dir='rtl'> {/* زيادة المسافة بين الكروت g-4 */}
-  <AnimatePresence>
-    {filteredItems.slice(0, visibleCount).map((item) => (
-      <div key={item.id} className='col-12 col-xl-6'> {/* col-xl-6 ليكون صفين في الشاشات الكبيرة جداً */}
-        
-        {/* الأنيميشن القديم بالضبط */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 50 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 50 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          viewport={{ once: false, amount: 0.2 }}
-          className='premium-food-card-horizontal d-flex align-items-center'
-        >
-          {/* قسم الصورة الدائرية الحقيقية مع البادج */}
-          <div className='img-section position-relative'>
-            <span className='static-price-badge-v4'>{item.price} د.ع</span>
-            
-            {/* هنا يتم قص الصورة لتصبح دائرية تماماً */}
-            <div className='true-circle-img-wrapper'>
-              <img
-                src={item.image_url}
-                className='food-img-v4'
-                alt={item.name}
-              />
-            </div>
-            
-            {/* تأثير إضاءة خلفي خفيف للصورة */}
-            <div className='img-glow-effect'></div>
-          </div>
+                  {/* هنا يتم قص الصورة لتصبح دائرية تماماً */}
+                  <div className='true-circle-img-wrapper'>
+                    <img
+                      src={item.image_url}
+                      className='food-img-v4'
+                      alt={item.name}
+                    />
+                  </div>
 
-          {/* تفاصيل الوجبة مع مساحات داخلية محسنة */}
-          <div className='details-section flex-grow-1 d-flex flex-column justify-content-between text-end'>
-            <div>
-              <h5 className='food-title-v4 mb-2 fw-bold text-truncate'>
-                {item.name}
-              </h5>
-              <p className='text-secondary small mb-0 food-desc-v4'>
-                {item.description}
-              </p>
-            </div>
+                  {/* تأثير إضاءة خلفي خفيف للصورة */}
+                  <div className='img-glow-effect'></div>
+                </div>
 
-            {/* الأزرار مع مسافة مريحة mt-3 */}
-            <div className='d-flex gap-3 mt-3'>
-              <button
-                onClick={() => {
-                  handleAddClick(item);
-                  toast.fire({ icon: "success", title: "تمت إضافة الوجبة للقائمة" });
-                }}
-                className='btn btn-outline-warning w-100 rounded-pill py-2 border-2 fw-bold action-btn'
-              >
-                + القائمة
-              </button>
-              <button
-                onClick={() => {
-                  setItemToOrderNow(item);
-                  setIsOpenOrderNow(true);
-                }}
-                className='btn btn-warning w-100 rounded-pill py-2 fw-bold text-dark action-btn order-now-btn'
-              >
-                اطلب الآن
-              </button>
+                {/* تفاصيل الوجبة مع مساحات داخلية محسنة */}
+                <div className='details-section flex-grow-1 d-flex flex-column justify-content-between text-end'>
+                  <div>
+                    <h5
+                      className='food-title-v4 mb-2 fw-bold text-wrap'
+                      style={{
+                        minHeight: "3rem",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}>
+                      {item.name}
+                    </h5>
+                    <p className='text-secondary small mb-0 food-desc-v4'>
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* الأزرار مع مسافة مريحة mt-3 */}
+                  <div className='d-flex gap-3 mt-3'>
+                    <button
+                      onClick={() => {
+                        handleAddClick(item);
+                        toast.fire({
+                          icon: "success",
+                          title: "تمت إضافة الوجبة للقائمة",
+                        });
+                      }}
+                      className='btn btn-outline-warning w-100 rounded-pill py-2 border-2 fw-bold action-btn'>
+                      + القائمة
+                    </button>
+                    <button
+                      onClick={() => {
+                        setItemToOrderNow(item);
+                        setIsOpenOrderNow(true);
+                      }}
+                      className='btn btn-warning w-100 rounded-pill py-2 fw-bold text-dark action-btn order-now-btn'>
+                      اطلب الآن
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </motion.div>
-      </div>
-    ))}
-  </AnimatePresence>
-</div>      {/* اطلب الان */}
+          ))}
+        </AnimatePresence>
+      </div>{" "}
+      {/* اطلب الان */}
       <OrderNowDialog
         isOpen={isOpenOrderNow}
         onClose={onCloseOrderNow}
